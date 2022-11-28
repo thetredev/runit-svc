@@ -1,0 +1,39 @@
+#!/bin/bash
+
+RUNIT_CONFIG_DIR=/etc/sv
+RUNIT_SERVICE_DIR=/var/service
+
+
+enable() {
+    ln -s $RUNIT_CONFIG_DIR/$1 $RUNIT_SERVICE_DIR/$1
+}
+
+disable() {
+    rm -f $RUNIT_SERVICE_DIR/$1
+}
+
+
+start() {
+    sv up $RUNIT_SERVICE_DIR/$1
+}
+
+stop() {
+    sv down $RUNIT_SERVICE_DIR/$1
+}
+
+
+restart() {
+    sv restart $RUNIT_SERVICE_DIR/$1
+}
+
+reload() {
+    sv reload $RUNIT_SERVICE_DIR/$1
+}
+
+
+status() {
+    sv status $RUNIT_SERVICE_DIR/$1
+}
+
+
+$@
